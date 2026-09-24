@@ -8,6 +8,7 @@
   - *Trigger* automático.
 - Dados particionados em formato *Parquet*.
 - Tabelas no *Athena* para consultas SQL.
+  - Particionamento estilo *Hive*.
 - Automação RPA para baixar dados históricos da B3.
 
 ![Arquitetura](/assets/images/arquitetura.png)
