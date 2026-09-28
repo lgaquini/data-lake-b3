@@ -92,7 +92,7 @@ def _extrair_ano_mes(file_path: str) -> tuple[str, str]:
         ('2025', '03')
     """
 
-    nome_arquivo = file_path.split("/")[-1][-5]
+    nome_arquivo = file_path.split("/")[-1][:-5]
 
     partes = nome_arquivo.split("-")
 
@@ -355,7 +355,7 @@ def processar_relatorio(file_path: str) -> None:
             df_processado = _processar_dataframe(df)
 
             # Salva arquivo parquet
-            _salvar_parquet_local(df_processado, aba, mes, ano)
+            _salvar_parquet_local(df_processado, aba, ano, mes)
 
         except ValueError as e:
             print(f"✗ Aba não encontrada ou erro: {e}")
@@ -367,7 +367,9 @@ def processar_relatorio(file_path: str) -> None:
 
 # Configuração dos caminhos e abas
 # TODO: trocar caminho local por bucket S3 (raw)
-CAMINHO_ARQUIVO = r"relatórios/relatorio-consolidado-mensal-2025-novembro.xlsx"
+# Raiz do projeto (src/data_lake_b3/process_data.py -> ../../..)
+RAIZ_PROJETO = Path(__file__).resolve().parents[2]
+CAMINHO_ARQUIVO = str(RAIZ_PROJETO / "assets/data/relatorio-consolidado-mensal-2025-novembro.xlsx")
 
 # Executa processamento
 processar_relatorio(CAMINHO_ARQUIVO)
